@@ -1,5 +1,6 @@
 import json
 import logging
+from pathlib import Path
 from ulauncher.api.client.EventListener import EventListener
 from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
 from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
@@ -9,16 +10,32 @@ logger = logging.getLogger(__name__)
 
 
 class KeywordQueryEventListener(EventListener):
+    def __init__(self, passstore_path):
+        self.passstore_path = passstore_path
 
     def on_event(self, event, extension):
+        p = Path(self.passstore_path)
+        fmt = (
+            lambda x: str(x).replace(self.passstore_path + "/", "").replace(".gpg", "")
+        )
+        search_term = "".join(event.get_argument()) if event.get_argument() else None
+
+        if not search_term:
+            values = [fmt(i) for i in p.glob("**/*.gpg")]
+        else:
+            values = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
+
         items = []
-        logger.info('preferences %s' % json.dumps(extension.preferences))
-        for i in range(5):
-            item_name = extension.preferences['item_name']
-            data = {'new_name': '%s %s was clicked' % (item_name, i)}
-            items.append(ExtensionResultItem(icon='images/icon.png',
-                                             name='%s %s' % (item_name, i),
-                                             description='Item description %s' % i,
-                                             on_enter=ExtensionCustomAction(data, keep_app_open=True)))
+        for value in values:
+            logger.info(value)
+            items.append(
+                ExtensionResultItem(
+                    icon="images/icon.png",
+                    name="%s" % value,
+                    on_enter=ExtensionCustomAction(
+                        {"value": value}, keep_app_open=True
+                    ),
+                )
+            )
 
         return RenderResultListAction(items)
