@@ -3,8 +3,6 @@ import os
 import subprocess
 from ulauncher.api.client.EventListener import EventListener
 from ulauncher.api.shared.action.HideWindowAction import HideWindowAction
-from ulauncher.api.shared.item.ExtensionResultItem import ExtensionResultItem
-from ulauncher.api.shared.action.RenderResultListAction import RenderResultListAction
 
 logger = logging.getLogger(__name__)
 
