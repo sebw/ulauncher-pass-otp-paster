@@ -6,4 +6,4 @@
 - pass
 
 ## Preferences
-- *passstore dir* - password storage directory
+- **passstore dir** - password storage directory
