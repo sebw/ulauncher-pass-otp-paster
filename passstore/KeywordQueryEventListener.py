@@ -10,13 +10,11 @@ logger = logging.getLogger(__name__)
 
 
 class KeywordQueryEventListener(EventListener):
-    def __init__(self, passstore_path):
-        self.passstore_path = passstore_path
-
     def on_event(self, event, extension):
-        p = Path(self.passstore_path)
+        passstore_dir = extension.preferences["passstore_dir"]
+        p = Path(passstore_dir)
         fmt = (
-            lambda x: str(x).replace(self.passstore_path + "/", "").replace(".gpg", "")
+            lambda x: str(x).replace(passstore_dir + "/", "").replace(".gpg", "")
         )
         search_term = "".join(event.get_argument()) if event.get_argument() else None
 
@@ -33,7 +31,8 @@ class KeywordQueryEventListener(EventListener):
                     icon="images/icon.png",
                     name="%s" % value,
                     on_enter=ExtensionCustomAction(
-                        {"value": value}, keep_app_open=True
+                        {"value": value, "path": passstore_dir,},
+                        keep_app_open=True,
                     ),
                 )
             )
