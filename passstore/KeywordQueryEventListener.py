@@ -35,7 +35,7 @@ class KeywordQueryEventListener(EventListener):
             logger.info(key)
             results.append(
                 ExtensionResultItem(
-                    icon="images/icon.png",
+                    icon=extension.ICON,
                     name="%s" % key,
                     on_enter=ExtensionCustomAction(
                         {"key": key, "path": str(p),}, keep_app_open=True,
