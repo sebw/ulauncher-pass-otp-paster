@@ -1,5 +1,13 @@
-# ulauncher-passstore
-[Ulauncher](https://ulauncher.io/) extension for [passstore](https://www.passwordstore.org/)
+# ulauncher-pass-paster
+[Ulauncher](https://ulauncher.io/) extension for copy to clipboard function of [pass](https://www.passwordstore.org/)
+
+## Usage
+- enter `pp`
+  - List passwords that exist in the store
+- enter `pp <query>`
+  - List passwords that match queries in the store
+- select passwords
+  - copy to the clipboard
 
 ## Requirements
 - Ulauncher 5.0+
@@ -7,3 +15,4 @@
 
 ## Preferences
 - **passstore dir** - password storage directory
+- **max number of list** - Maximum number of search results
