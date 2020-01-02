@@ -1,6 +1,8 @@
 # ulauncher-pass-paster
 [Ulauncher](https://ulauncher.io/) extension for copy to clipboard function of [pass](https://www.passwordstore.org/)
 
+![image](images/image.gif)
+
 ## Usage
 - enter `pp`
   - List passwords that exist in the store
