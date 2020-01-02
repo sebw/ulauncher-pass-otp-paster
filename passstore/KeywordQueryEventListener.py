@@ -12,30 +12,35 @@ logger = logging.getLogger(__name__)
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         passstore_dir = extension.preferences["passstore_dir"]
-        max_num = extension.preferences["passstore_max_num"]
-        p = Path(passstore_dir)
-        fmt = (
-            lambda x: str(x).replace(passstore_dir + "/", "").replace(".gpg", "")
-        )
+        p = Path(passstore_dir).expanduser()
+        if not p.is_dir():
+            p = Path(extension.PASSSTORE_DIR).expanduser()
+
+        fmt = lambda x: str(x).replace(str(p) + "/", "").replace(".gpg", "")
         search_term = "".join(event.get_argument()) if event.get_argument() else None
 
         if not search_term:
-            values = [fmt(i) for i in p.glob("**/*.gpg")]
+            items = [fmt(i) for i in p.glob("**/*.gpg")]
         else:
-            values = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
+            items = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
 
-        items = []
-        for value in values[0:max_num]:
-            logger.info(value)
-            items.append(
+        try:
+            max_num = int(extension.preferences["max_num"])
+            keys = items[0:max_num]
+        except ValueError:
+            keys = items[0:extension.SEARCH_MAX_NUM]
+
+        results = []
+        for key in keys:
+            logger.info(key)
+            results.append(
                 ExtensionResultItem(
                     icon="images/icon.png",
-                    name="%s" % value,
+                    name="%s" % key,
                     on_enter=ExtensionCustomAction(
-                        {"value": value, "path": passstore_dir,},
-                        keep_app_open=True,
+                        {"key": key, "path": str(p),}, keep_app_open=True,
                     ),
                 )
             )
 
-        return RenderResultListAction(items)
+        return RenderResultListAction(results)
