@@ -21,6 +21,13 @@
       "name": "passstore dir",
       "description": "PASSWORD_STORE_DIR",
       "default_value": "~/.password-store"
+    },
+    {
+      "id": "passstore_max_num",
+      "type": "input",
+      "name": "max number",
+      "description": "Maximum number of search results",
+      "default_value": 10
     }
   ]
 }

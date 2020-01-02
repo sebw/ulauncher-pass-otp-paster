@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 class KeywordQueryEventListener(EventListener):
     def on_event(self, event, extension):
         passstore_dir = extension.preferences["passstore_dir"]
+        max_num = extension.preferences["passstore_max_num"]
         p = Path(passstore_dir)
         fmt = (
             lambda x: str(x).replace(passstore_dir + "/", "").replace(".gpg", "")
@@ -24,7 +25,7 @@ class KeywordQueryEventListener(EventListener):
             values = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
 
         items = []
-        for value in values:
+        for value in values[0:max_num]:
             logger.info(value)
             items.append(
                 ExtensionResultItem(
