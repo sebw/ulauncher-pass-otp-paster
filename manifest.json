@@ -1,8 +1,8 @@
 {
   "required_api_version": "^2.0.0",
-  "name": "ulauncher-pass-paster",
-  "description": "ulauncher extension with copy to clipboard function of pass",
-  "developer_name": "m3y",
+  "name": "ulauncher-pass-otp-paster",
+  "description": "ulauncher extension with copy to clipboard function of pass otp",
+  "developer_name": "Sebastien Wains",
   "icon": "images/icon.png",
   "options": {
     "query_debounce": 0.1
@@ -12,8 +12,8 @@
       "id": "pass_paster_kw",
       "type": "keyword",
       "name": "pass paster",
-      "description": "copy to clipboard function of pass",
-      "default_value": "pp"
+      "description": "copy to clipboard function of pass otp",
+      "default_value": "otp"
     },
     {
       "id": "passstore_dir",

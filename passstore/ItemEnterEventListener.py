@@ -13,6 +13,6 @@ class ItemEnterEventListener(EventListener):
         logger.info(data["key"])
         logger.info(data["path"])
         os.environ["PASSWORD_STORE_DIR"] = data["path"]
-        subprocess.run(["pass", "-c", data["key"]], check=True)
+        subprocess.run(["pass", "otp", "-c", data["key"]], check=True)
 
         return HideWindowAction()
