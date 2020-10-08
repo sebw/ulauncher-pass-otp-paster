@@ -2,7 +2,7 @@
   "required_api_version": "^2.0.0",
   "name": "ulauncher-pass-otp-paster",
   "description": "ulauncher extension with copy to clipboard function of pass otp",
-  "developer_name": "Sebastien Wains",
+  "developer_name": "Masaya Ozawa, Sebastien Wains",
   "icon": "images/icon.png",
   "options": {
     "query_debounce": 0.1
@@ -11,7 +11,7 @@
     {
       "id": "pass_paster_kw",
       "type": "keyword",
-      "name": "pass OTP",
+      "name": "pass otp",
       "description": "copy to clipboard function of pass otp",
       "default_value": "otp"
     },
