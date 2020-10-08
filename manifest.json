@@ -11,7 +11,7 @@
     {
       "id": "pass_paster_kw",
       "type": "keyword",
-      "name": "pass paster",
+      "name": "pass OTP",
       "description": "copy to clipboard function of pass otp",
       "default_value": "otp"
     },

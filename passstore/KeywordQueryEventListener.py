@@ -20,9 +20,11 @@ class KeywordQueryEventListener(EventListener):
         search_term = "".join(event.get_argument()) if event.get_argument() else None
 
         if not search_term:
-            items = [fmt(i) for i in p.glob("**/*.gpg")]
+            items_unsorted = [fmt(i) for i in p.glob("**/*.gpg")]
+            items = sorted(items_unsorted)
         else:
-            items = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
+            items_unsorted = [fmt(i) for i in p.glob("**/*.gpg") if search_term in fmt(i)]
+            items = sorted(items_unsorted)
 
         try:
             max_num = int(extension.preferences["max_num"])
